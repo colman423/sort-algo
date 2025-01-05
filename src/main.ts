@@ -1,24 +1,31 @@
-import './style.css';
-import typescriptLogo from './typescript.svg';
-import viteLogo from '/vite.svg';
-import { setupCounter } from './counter.ts';
+import { bubbleSort, heapSort } from './algorithm';
+import { DataChangeHandler } from './type';
+import { initDataPoint, initSortingButton, updateDataPoint } from './ui';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`;
+initSortingButton();
+initDataPoint();
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
+const algorithmMap = {
+  bubble: bubbleSort,
+  heap: heapSort,
+};
+
+document.querySelector('#sort-btn-container')!.addEventListener('click', async (e) => {
+  const target = e.target as HTMLElement;
+  if (target.dataset.algorithm) {
+    const data = initDataPoint();
+
+    const algorithm = target.dataset.algorithm;
+    const func = algorithmMap[algorithm as keyof typeof algorithmMap];
+
+    let allChanges: { index: number; val: number }[] = [];
+
+    const dataChanger: DataChangeHandler = async (changes) => {
+      allChanges = allChanges.concat(changes);
+    };
+
+    await func(JSON.parse(JSON.stringify(data)), dataChanger);
+
+    await updateDataPoint(allChanges);
+  }
+});

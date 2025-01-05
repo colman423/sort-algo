@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#chart-container {
+  --chart-width: 800px;
+  --chart-height: 1000px;
+  --bar-width: 2px;
+  --bar-count: calc(var(--chart-width) / var(--bar-width));
+}

@@ -8,9 +8,26 @@
   <title>Vite + TS</title>
 </head>
 
-<body>
-  <div id="app"></div>
+<bod class="flex flex-col gap-4 py-4 px-8">
+
+  <div id="sort-btn-container" class="flex items-center justify-center gap-2">
+    <button class="p-2 rounded bg-[#28a745] text-white" id="shuffle">shuffle</button>
+    <button class="p-2 rounded bg-[#28a745] text-white" id="refresh">refresh</button>
+  </div>
+  <template id="sort-btn-template">
+    <button class="p-2 rounded bg-[#007bff] text-white" id="bubble">bubble</button>
+  </template>
+
+  <div id="chart-container" class="w-[--chart-width] h-[--chart-height] border-l border-b border-gray-800">
+    <div id="bars-container" class="flex items-end w-full h-full">
+    </div>
+    <template id="bar-template">
+      <div class="bar bg-orange-500 w-[--bar-width] transition-[height]"></div>
+    </template>
+  </div>
+
+
   <script type="module" src="/src/main.ts"></script>
-</body>
+  </body>
 
 </html>
