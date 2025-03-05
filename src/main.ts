@@ -1,4 +1,13 @@
-import { bubbleSort, heapSort } from './algorithm';
+import {
+  bubbleSort,
+  selectionSort,
+  insertionSort,
+  heapSort,
+  quickSort,
+  mergeSort,
+  radixSort,
+  cocktailSort,
+} from './algorithm';
 import { DataChangeHandler } from './type';
 import { initDataPoint, initSortingButton, updateDataPoint } from './ui';
 
@@ -7,7 +16,13 @@ initDataPoint();
 
 const algorithmMap = {
   bubble: bubbleSort,
+  selection: selectionSort,
+  insertion: insertionSort,
   heap: heapSort,
+  quick: quickSort,
+  merge: mergeSort,
+  radix: radixSort,
+  cocktail: cocktailSort,
 };
 
 document.querySelector('#sort-btn-container')!.addEventListener('click', async (e) => {
@@ -21,7 +36,9 @@ document.querySelector('#sort-btn-container')!.addEventListener('click', async (
     let allChanges: { index: number; val: number }[] = [];
 
     const dataChanger: DataChangeHandler = async (changes) => {
-      allChanges = allChanges.concat(changes);
+      for (const change of changes) {
+        allChanges.push(change);
+      }
     };
 
     await func(JSON.parse(JSON.stringify(data)), dataChanger);

@@ -10,7 +10,7 @@ export const initSortingButton = () => {
     .firstElementChild!;
   const sortingBtnContainer = document.querySelector('#sort-btn-container')!;
 
-  const sortingAlgorithms = ['bubble', 'selection', 'insertion', 'heap', 'quick', 'merge'];
+  const sortingAlgorithms = ['bubble', 'selection', 'insertion', 'heap', 'quick', 'merge', 'radix', 'cocktail'];
 
   sortingAlgorithms.forEach((algorithm) => {
     const btn = sortingBtnTemplate.cloneNode(true) as HTMLElement;
